@@ -2,6 +2,7 @@ package main
 
 import (
 	"blog-graphql/db"
+	"blog-graphql/db/migrations"
 	"blog-graphql/env"
 	"blog-graphql/graph"
 	"log"
@@ -17,7 +18,7 @@ const defaultPort = "8080"
 func main() {
 	env.InitEnv()
 	db.DBConnection()
-
+	migrations.Migrate()
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = defaultPort
