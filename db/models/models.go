@@ -44,5 +44,6 @@ type User struct {
 	Password string
 	Name string
 	Credentials Credentials
+	Token string
 }
 
