@@ -11,26 +11,31 @@ type Comment struct {
 	ID        string  `json:"_id"`
 	Body      string  `json:"body"`
 	User      *User   `json:"user,omitempty"`
+	UserID    string  `json:"userId"`
 	Post      *Post   `json:"post"`
+	PostID    string  `json:"postId"`
 	CreateAt  *string `json:"createAt,omitempty"`
 	UpdatedAt *string `json:"updatedAt,omitempty"`
 }
 
 type Credentials struct {
 	ID       string `json:"_id"`
+	UserID   string `json:"userId"`
 	IsAdmin  bool   `json:"isAdmin"`
 	IsAuthor bool   `json:"isAuthor"`
 }
 
 type Post struct {
-	ID        string     `json:"_id"`
-	Title     string     `json:"title"`
-	Body      string     `json:"body"`
-	Category  *Category  `json:"category,omitempty"`
-	User      *User      `json:"user"`
-	Comments  []*Comment `json:"comments"`
-	CreateAt  *string    `json:"createAt,omitempty"`
-	UpdatedAt *string    `json:"updatedAt,omitempty"`
+	ID         string     `json:"_id"`
+	Title      string     `json:"title"`
+	Body       string     `json:"body"`
+	Category   *Category  `json:"category,omitempty"`
+	CategoryID string     `json:"categoryId"`
+	User       *User      `json:"user"`
+	UserID     string     `json:"userId"`
+	Comments   []*Comment `json:"comments"`
+	CreateAt   *string    `json:"createAt,omitempty"`
+	UpdatedAt  *string    `json:"updatedAt,omitempty"`
 }
 
 type User struct {

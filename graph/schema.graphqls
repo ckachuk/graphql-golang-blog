@@ -2,6 +2,14 @@
 #
 # https://gqlgen.com/getting-started/
 
+directive @goField(
+  forceResolver: Boolean
+  name: String
+) on FIELD_DEFINITION | INPUT_FIELD_DEFINITION
+
+# new directive
+directive @auth on FIELD_DEFINITION
+
 type Category {
   _id: ID!
   name: String!
@@ -10,7 +18,9 @@ type Comment {
   _id: ID!
   body: String!
   user: User
+  userId: ID!
   post: Post!
+  postId: ID!
   createAt: String
   updatedAt: String
 }
@@ -19,13 +29,16 @@ type Post {
   title: String!
   body: String!
   category: Category
+  categoryId: ID!
   user: User!
+  userId: ID!
   comments: [Comment!]!
   createAt: String
   updatedAt: String
 }
 type Credentials {
   _id: ID!
+  userId: ID!
   isAdmin: Boolean!
   isAuthor: Boolean!
 }
@@ -43,9 +56,13 @@ type Mutation {
   createCategory(name: String!): Category
   deleteCategory(_id: ID!): Category
   updateCategory(_id: ID!, name: String!): Category
-  createUser(username: String, password: String, name: String): User!
-  login(username: String, password: String): User!
-  updatePassword(_id: ID!, oldPassword: String, newPassword: String): Boolean
+  createUser(username: String!, password: String!, name: String!): User!
+  login(username: String!, password: String!): User!
+  updatePassword(
+    username: String!
+    oldPassword: String!
+    newPassword: String!
+  ): Boolean
   createComment(body: String!, postId: ID!, userId: ID!): Comment
   deleteComment(_id: ID!): Comment
   updateComment(_id: ID!, body: String!): Comment
@@ -55,6 +72,7 @@ type Mutation {
 }
 type Query {
   user(_id: ID!): User
+  protected: String! @goField(forceResolver: true) @auth
   users: [User!]!
   category(_id: ID!): Category
   categories: [Category!]!
